@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1688232979 source:c:\users\eloy\documents\github\ideascribe\ideascribe\lib.c
+	"lib.h"
+
+1688232919 source:c:\users\eloy\documents\github\ideascribe\ideascribe\main.c
+	"lib.h"
+
+1688232390 c:\users\eloy\documents\github\ideascribe\ideascribe\lib.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1688231292 c:\users\eloy\documents\github\ideascribe\ideascribe\lib.c
+
