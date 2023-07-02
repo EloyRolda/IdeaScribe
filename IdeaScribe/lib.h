@@ -5,14 +5,15 @@
 #define dimTitle 50
 #define dimDesc 500
 
-#define fileNameIdea "ideasData.bin"
+#define fNameIdea "ideasData.bin"
 
 typedef struct{
 
 int id;
 char title[dimTitle];
 char desc[dimDesc];
-char category[];
+char category[dimTitle];
+char status[25];
 
 }stIdea;
 
@@ -24,3 +25,5 @@ int assignID();
 void showAllIdeas();
 void printIdea(stIdea idea);
 
+void showIdeaByID();
+char addTitle();

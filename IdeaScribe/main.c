@@ -2,8 +2,10 @@
 
 int main()
 {
-   addIdea();
+    addIdea();
+
     showAllIdeas();
+    //showIdeaByID();
 
     return 0;
 }
