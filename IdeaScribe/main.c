@@ -2,10 +2,7 @@
 
 int main()
 {
-    addIdea();
-
-    showAllIdeas();
-    //showIdeaByID();
+   menuScribe();
 
     return 0;
 }

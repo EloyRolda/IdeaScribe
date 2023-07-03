@@ -1,11 +1,13 @@
 #include "lib.h"
 
 
-void addIdea(){ //Modularizar
+void addIdea()  //Modularizar
+{
 
     stIdea actualIdea;
 
     actualIdea.id = assignID();
+    system("cls");
 
     printf("Titulo: ");
     fflush(stdin);
@@ -52,7 +54,8 @@ int assignID()      //returns last ID.
     return ID;
 }
 
-void showAllIdeas()         //shows all ideas
+//Mostrar
+void showAllIdeas()                 //shows all ideas
 {
 
     FILE * archive;
@@ -69,21 +72,21 @@ void showAllIdeas()         //shows all ideas
         fclose(archive);
     }
 }
-
-void showIdeaByID()          //show Idea by ID
+void showIdeaByID()                 //show Idea by ID
 {
     FILE * archive;
     archive = fopen(fNameIdea, "rb");
     stIdea idea;
     int ID;
-
+    system("cls");
     do
     {
         system("cls");
-        printf("Ingrese el ID de la idea a imprimir\n");
+        printf("Ingrese el 0 para volver\n");
+        printf("ID a buscar: \n");
         fflush(stdin);
         scanf("%i", &ID);
-        if(ID <= 0 || ID > maxID())
+        if(ID < 0 || ID > maxID())
         {
 
             system("cls");
@@ -91,11 +94,14 @@ void showIdeaByID()          //show Idea by ID
             system("pause");
 
 
+        }else if(ID == 0){
+
+        break;
         }
 
 
     }
-    while(ID <= 0 || ID > maxID());
+    while(ID < 0 || ID > maxID());
 
 
     if(archive != NULL)
@@ -112,8 +118,7 @@ void showIdeaByID()          //show Idea by ID
         fclose(archive);
     }
 }
-
-void printIdea(stIdea idea)     //print an idea received for parameter
+void printIdea(stIdea idea)         //print an idea received for parameter
 {
     printf("--------------------------------------\n");
     printf("ID: %i\n", idea.id);
@@ -123,8 +128,7 @@ void printIdea(stIdea idea)     //print an idea received for parameter
     printf("Estado: %s\n", idea.status);
     printf("--------------------------------------\n");
 }
-
-int maxID()
+int maxID()                         //obtain max id from the file
 {
     FILE * archive;
     archive = fopen(fNameIdea, "rb");
@@ -132,10 +136,121 @@ int maxID()
     int max = 0;
     if(archive != NULL)
     {
+        fseek(archive, sizeof(stIdea) * (-1), SEEK_END);
         fread(&idea, sizeof(stIdea), 1, archive);
-        fseek(archive, sizeof(stIdea) * -1, SEEK_END);
         max = idea.id;
         fclose(archive);
     }
     return max;
+}
+
+//Modify
+void modifyStatus(){
+
+
+
+
+
+
+}
+
+
+
+//menu
+void menuScribe()
+{
+
+    int option = 0;
+
+    do
+    {
+        system("cls");
+        printf("Idea Scribe.\n");
+
+        printf("1- Agregar idea\n");
+        printf("2- Visualizer Ideas\n");
+        printf("3- \n");
+        printf("0- Salir\n");
+        fflush(stdin);
+        scanf("%i", &option);
+
+
+        switch(option)
+        {
+
+        case 1:
+            addIdea();
+            break;
+        case 2:
+            visualizerMenu();
+            break;
+        case 3:
+
+            break;
+        case 3107:
+
+            break;
+        default:
+            if(option == 0)
+            {
+
+            }
+            else
+            {
+                system("cls");
+                printf("Ingrese una opcion valida");
+                system("pause");
+
+
+            }
+            break;
+        }
+    }
+    while(option != 0);
+
+
+}
+
+void visualizerMenu()
+{
+    int option = 0;
+    do
+    {
+        system("cls");
+        printf("1- Ver todas <%i>\n", maxID());
+        printf("2- Ver por ID\n");
+        printf("0- Salir\n");
+        fflush(stdin);
+        scanf("%i", &option);
+
+
+        switch(option)
+        {
+
+        case 1:
+            showAllIdeas();
+            break;
+        case 2:
+            showIdeaByID();
+            break;
+        default:
+            if(option == 0)
+            {
+
+            }
+            else
+            {
+                system("cls");
+                printf("Ingrese una opcion valida");
+                system("pause");
+
+
+            }
+            break;
+        }
+    }
+    while(option != 0);
+
+
+
 }
