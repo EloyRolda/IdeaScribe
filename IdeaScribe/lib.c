@@ -94,9 +94,11 @@ void showIdeaByID()                 //show Idea by ID
             system("pause");
 
 
-        }else if(ID == 0){
+        }
+        else if(ID == 0)
+        {
 
-        break;
+            break;
         }
 
 
@@ -121,11 +123,11 @@ void showIdeaByID()                 //show Idea by ID
 void printIdea(stIdea idea)         //print an idea received for parameter
 {
     printf("--------------------------------------\n");
-    printf("ID: %i\n", idea.id);
-    printf("Categoria: %s", idea.category);
-    printf("Titulo:%s", idea.title);
-    printf("Descripcion:\n%s", idea.desc);
-    printf("Estado: %s\n", idea.status);
+    printf("| ID: %i\n", idea.id);
+    printf("| Estado: %s\n", idea.status);
+    printf("| Categoria: %s", idea.category);
+    printf("| Titulo:%s", idea.title);
+    printf("| Descripcion:\n > %s", idea.desc);
     printf("--------------------------------------\n");
 }
 int maxID()                         //obtain max id from the file
@@ -145,13 +147,90 @@ int maxID()                         //obtain max id from the file
 }
 
 //Modify
-void modifyStatus(){
+void modifyStatus()
+{
+    FILE * archive;
+    int ID = 0;
+    int option = 0;
+    stIdea idea;
+    archive = fopen(fNameIdea, "r+b");
+
+    if(archive != NULL)
+    {
+        do
+        {
+            system("cls");
+            printf("Ideas cargadas: <%i>\n", maxID());
+            printf("Ingrese el ID de la idea a modificar\n>: ");
+            fflush(stdin);
+            scanf("%i", &ID);
+
+            if(ID > maxID() || ID <= 0)
+            {
+                system("cls");
+                printf("Opcion invalida\n");
+                system("pause");
+            }
+        }
+        while(ID > maxID() || ID <= 0);
 
 
 
 
+        while(fread(&idea, sizeof(stIdea),1,archive)>0)
+        {
 
+            if(ID == idea.id)
+            {
+                fseek(archive, sizeof(stIdea)* -1, SEEK_CUR);
+                break;
+            }
 
+        }
+        do
+        {
+            system("cls");
+            printIdea(idea);
+            printf("Cambiar a: \n");
+            printf("1- En concepto. \n");
+            printf("2- En proceso. \n");
+            printf("3- Finalizado. \n");
+            printf("0- Salir. \n>:");
+            scanf("%i", &option);
+
+            switch(option)
+            {
+            case 1:
+                strcpy(idea.status, "En concepto.");
+                break;
+            case 2:
+                strcpy(idea.status, "En proceso.");
+                break;
+            case 3:
+                strcpy(idea.status, "Finalizado.");
+                break;
+            default:
+                if(option == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    system("cls");
+                    printf("Opcion invalida.");
+                    system("pause");
+                }
+                break;
+            }
+        }
+        while(option < 0 || option > 3);
+
+        if(option != 0)
+        {
+            fwrite(&idea, sizeof(stIdea), 1, archive);
+        }
+        fclose(archive);
+    }
 }
 
 
@@ -169,7 +248,7 @@ void menuScribe()
 
         printf("1- Agregar idea\n");
         printf("2- Visualizer Ideas\n");
-        printf("3- \n");
+        printf("3- Editar Ideas\n");
         printf("0- Salir\n");
         fflush(stdin);
         scanf("%i", &option);
@@ -185,6 +264,7 @@ void menuScribe()
             visualizerMenu();
             break;
         case 3:
+            editorMenu();
 
             break;
         case 3107:
@@ -251,6 +331,44 @@ void visualizerMenu()
     }
     while(option != 0);
 
+}
+
+void editorMenu(){
+int option = 0;
+    do
+    {
+        system("cls");
+        printf("1- Modificar Estado\n" );
+        printf("2- Modificar Titulo- \n");
+        printf("0- Salir\n");
+        fflush(stdin);
+        scanf("%i", &option);
+
+
+        switch(option)
+        {
+
+        case 1:
+            modifyStatus();
+            break;
+        case 2:
+
+            break;
+        default:
+            if(option == 0)
+            {
+
+            }
+            else
+            {
+                system("cls");
+                printf("Ingrese una opcion valida");
+                system("pause");
+            }
+            break;
+        }
+    }
+    while(option != 0);
 
 
 }
