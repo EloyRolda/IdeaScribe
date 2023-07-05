@@ -62,9 +62,7 @@ void showIdeaByID()                 //show Idea by ID
         }
         else
         {
-            system("cls");
-            printf("No hay ideas cargadas\n");
-            system("pause");
+        noIdeasMessage();
         }
     }
 void showAllIdeas()                 //shows all ideas
@@ -90,10 +88,7 @@ void showAllIdeas()                 //shows all ideas
     }
     else
     {
-
-        system("cls");
-        printf("No hay ideas cargadas\n");
-        system("pause");
+       noIdeasMessage();
     }
 }
 void printIdea(stIdea idea)         //print an idea received for parameter
@@ -449,6 +444,7 @@ void visualizerMenu()
 void editorMenu()
 {
     int option = 0;
+    if(maxID() > 0){
     do
     {
         system("cls");
@@ -493,7 +489,11 @@ void editorMenu()
         }
     }
     while(option != 0);
+}else{
 
+noIdeasMessage();
+
+}
 
 }
 void titleDisplay(){
@@ -510,4 +510,10 @@ void titleDisplay(){
     printf("                                                                          \n");
     printf("                                                                          \n");
 
+}
+
+void noIdeasMessage(){
+system("cls");
+printf("No hay ideas cargadas\n");
+system("pause");
 }
