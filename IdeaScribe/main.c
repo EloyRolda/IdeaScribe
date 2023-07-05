@@ -3,6 +3,5 @@
 int main()
 {
    menuScribe();
-
     return 0;
 }
