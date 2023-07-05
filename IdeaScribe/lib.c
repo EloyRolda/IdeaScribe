@@ -233,8 +233,166 @@ void modifyStatus()
     }
 }
 
+void modifyTitle()
+{
+    FILE * archive;
+    int ID = 0;
+    int option = 0;
+    stIdea idea;
+    archive = fopen(fNameIdea, "r+b");
+
+    if(archive != NULL)
+    {
+        do
+        {
+            system("cls");
+            printf("Ideas cargadas: <%i>\n", maxID());
+            printf("Ingrese el ID de la idea a modificar\n>: ");
+            fflush(stdin);
+            scanf("%i", &ID);
+
+            if(ID > maxID() || ID <= 0)
+            {
+                system("cls");
+                printf("Opcion invalida\n");
+                system("pause");
+            }
+        }
+        while(ID > maxID() || ID <= 0);
 
 
+
+
+        while(fread(&idea, sizeof(stIdea),1,archive)>0)
+        {
+
+            if(ID == idea.id)
+            {
+                fseek(archive, sizeof(stIdea)* -1, SEEK_CUR);
+                break;
+            }
+
+        }
+
+        printIdea(idea);
+
+        printf("Titulo: ");
+        fflush(stdin);
+        fgets(idea.title, dimTitle, stdin);
+
+
+        fwrite(&idea, sizeof(stIdea), 1, archive);
+
+        fclose(archive);
+    }
+}
+void modifyDesc()
+{
+    FILE * archive;
+    int ID = 0;
+    int option = 0;
+    stIdea idea;
+    archive = fopen(fNameIdea, "r+b");
+
+    if(archive != NULL)
+    {
+        do
+        {
+            system("cls");
+            printf("Ideas cargadas: <%i>\n", maxID());
+            printf("Ingrese el ID de la idea a modificar\n>: ");
+            fflush(stdin);
+            scanf("%i", &ID);
+
+            if(ID > maxID() || ID <= 0)
+            {
+                system("cls");
+                printf("Opcion invalida\n");
+                system("pause");
+            }
+        }
+        while(ID > maxID() || ID <= 0);
+
+
+
+
+        while(fread(&idea, sizeof(stIdea),1,archive)>0)
+        {
+
+            if(ID == idea.id)
+            {
+                fseek(archive, sizeof(stIdea)* -1, SEEK_CUR);
+                break;
+            }
+
+        }
+
+        printIdea(idea);
+
+        printf("Descripcion: ");
+        fflush(stdin);
+        fgets(idea.desc, dimDesc, stdin);
+
+
+        fwrite(&idea, sizeof(stIdea), 1, archive);
+
+        fclose(archive);
+    }
+}
+
+void modifyCat()
+{
+    FILE * archive;
+    int ID = 0;
+    int option = 0;
+    stIdea idea;
+    archive = fopen(fNameIdea, "r+b");
+
+    if(archive != NULL)
+    {
+        do
+        {
+            system("cls");
+            printf("Ideas cargadas: <%i>\n", maxID());
+            printf("Ingrese el ID de la idea a modificar\n>: ");
+            fflush(stdin);
+            scanf("%i", &ID);
+
+            if(ID > maxID() || ID <= 0)
+            {
+                system("cls");
+                printf("Opcion invalida\n");
+                system("pause");
+            }
+        }
+        while(ID > maxID() || ID <= 0);
+
+
+
+
+        while(fread(&idea, sizeof(stIdea),1,archive)>0)
+        {
+
+            if(ID == idea.id)
+            {
+                fseek(archive, sizeof(stIdea)* -1, SEEK_CUR);
+                break;
+            }
+
+        }
+
+        printIdea(idea);
+
+        printf("Categoria: ");
+        fflush(stdin);
+        fgets(idea.category, dimTitle, stdin);
+
+
+        fwrite(&idea, sizeof(stIdea), 1, archive);
+
+        fclose(archive);
+    }
+}
 //menu
 void menuScribe()
 {
@@ -333,13 +491,17 @@ void visualizerMenu()
 
 }
 
-void editorMenu(){
-int option = 0;
+void editorMenu()
+{
+    int option = 0;
     do
     {
         system("cls");
-        printf("1- Modificar Estado\n" );
-        printf("2- Modificar Titulo- \n");
+
+        printf("1- Modificar Titulo- \n");
+        printf("2- Modificar Estado\n" );
+        printf("3- Modificar Descripcion- \n");
+        printf("4- Modificar Categoria- \n");
         printf("0- Salir\n");
         fflush(stdin);
         scanf("%i", &option);
@@ -349,11 +511,18 @@ int option = 0;
         {
 
         case 1:
-            modifyStatus();
+            modifyTitle();
             break;
         case 2:
-
+            modifyStatus();
             break;
+        case 3:
+            modifyDesc();
+            break;
+        case 4:
+            modifyCat();
+            break;
+
         default:
             if(option == 0)
             {
